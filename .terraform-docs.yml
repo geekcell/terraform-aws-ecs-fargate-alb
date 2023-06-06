@@ -26,7 +26,7 @@ content: |-
   # Examples
     ### Complete
     ```hcl
-    {{ include "examples/complete/main.tf" }}
+    {{ include "examples/basic-example/main.tf" }}
     ```
 
 output:
