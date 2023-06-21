@@ -38,35 +38,54 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 
 -->
 
-# Terraform AWS Module Template
 
-A template repository for creating our AWS Terraform modules. It gives you a good starting point for creating new modules quickly.
-It comes with:
-* Basic directory structure
-* GitHub Workflow for Linting and Validation
-* Pre-Commit Hooks
-* Makefile for common tasks
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_app_port"></a> [app\_port](#input\_app\_port) | Port that the app container listens on. | `number` | n/a | yes |
+| <a name="input_desired_count"></a> [desired\_count](#input\_desired\_count) | Number of desired Fargate tasks. | `number` | `1` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name to use for components. | `string` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | Id of VPC. | `string` | n/a | yes |
+| <a name="input_vpc_private_subnets"></a> [vpc\_private\_subnets](#input\_vpc\_private\_subnets) | Private subnets from VPC. | `list(string)` | n/a | yes |
+| <a name="input_vpc_public_subnets"></a> [vpc\_public\_subnets](#input\_vpc\_public\_subnets) | Public subnets from VPC. | `list(string)` | n/a | yes |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_alb_dns_name"></a> [alb\_dns\_name](#output\_alb\_dns\_name) | Public address of ALB. |
+| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | Security group assigned to the service |
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
 ## Resources
 
+- resource.aws_cloudwatch_log_group.web (main.tf#161)
+- resource.aws_ecs_service.web (main.tf#129)
+- resource.aws_lb_listener.main (main.tf#58)
+- resource.aws_lb_target_group.main (main.tf#33)
+- resource.aws_security_group_rule.alb_egress_to_ecs (main.tf#11)
+- resource.aws_security_group_rule.alb_ingress_to_ecs (main.tf#22)
 
 # Examples
 ### Complete
 ```hcl
-module "example" {
+module "basic-example" {
   source = "../../"
+
+  name = var.name
+
+  vpc_id = var.vpc_id
+  vpc_private_subnets = var.vpc_private_subnets
+  vpc_public_subnets = var.vpc_public_subnets
+
+  app_port = var.app_port
 }
 ```
 <!-- END_TF_DOCS -->
