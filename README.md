@@ -56,7 +56,14 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 | Name | Description |
 |------|-------------|
 | <a name="output_alb_dns_name"></a> [alb\_dns\_name](#output\_alb\_dns\_name) | Public address of ALB. |
-| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | Security group assigned to the service |
+| <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | Name of the ECS cluster. |
+| <a name="output_ecr_repository_name"></a> [ecr\_repository\_name](#output\_ecr\_repository\_name) | Name of the ECR repository. |
+| <a name="output_execution_role_arn"></a> [execution\_role\_arn](#output\_execution\_role\_arn) | ARN of the execution role. |
+| <a name="output_execution_role_name"></a> [execution\_role\_name](#output\_execution\_role\_name) | Name of the execution role. |
+| <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | Security group assigned to the service. |
+| <a name="output_service_name"></a> [service\_name](#output\_service\_name) | Name of the ECS service. |
+| <a name="output_task_role_arn"></a> [task\_role\_arn](#output\_task\_role\_arn) | ARN of the task role. |
+| <a name="output_task_role_name"></a> [task\_role\_name](#output\_task\_role\_name) | Name of the task role. |
 
 ## Providers
 
