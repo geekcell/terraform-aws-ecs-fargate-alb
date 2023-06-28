@@ -46,6 +46,7 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 |------|-------------|------|---------|:--------:|
 | <a name="input_app_port"></a> [app\_port](#input\_app\_port) | Port that the app container listens on. | `number` | n/a | yes |
 | <a name="input_desired_count"></a> [desired\_count](#input\_desired\_count) | Number of desired Fargate tasks. | `number` | `1` | no |
+| <a name="input_enable_execute_command"></a> [enable\_execute\_command](#input\_enable\_execute\_command) | Allow execution commands on containers. | `bool` | `true` | no |
 | <a name="input_enable_http_to_https_redirect"></a> [enable\_http\_to\_https\_redirect](#input\_enable\_http\_to\_https\_redirect) | Enable port 80 redirect to 443. | `bool` | `false` | no |
 | <a name="input_enable_security_group"></a> [enable\_security\_group](#input\_enable\_security\_group) | Enable default security group. | `bool` | `true` | no |
 | <a name="input_enable_security_group_default_http_https_rule"></a> [enable\_security\_group\_default\_http\_https\_rule](#input\_enable\_security\_group\_default\_http\_https\_rule) | Enable default security group rules for port 80 & 443. | `bool` | `true` | no |
@@ -76,8 +77,8 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 
 ## Resources
 
-- resource.aws_cloudwatch_log_group.web (main.tf#162)
-- resource.aws_ecs_service.web (main.tf#130)
+- resource.aws_cloudwatch_log_group.main (main.tf#163)
+- resource.aws_ecs_service.main (main.tf#130)
 - resource.aws_lb_listener.main (main.tf#59)
 - resource.aws_lb_target_group.main (main.tf#34)
 - resource.aws_security_group_rule.alb_egress_to_ecs (main.tf#12)
