@@ -28,3 +28,21 @@ variable "desired_count" {
   description = "Number of desired Fargate tasks."
   type        = number
 }
+
+variable "enable_security_group" {
+  default     = true
+  description = "Enable default security group."
+  type        = bool
+}
+
+variable "enable_security_group_default_http_https_rule" {
+  default     = true
+  description = "Enable default security group rules for port 80 & 443."
+  type        = bool
+}
+
+variable "enable_http_to_https_redirect" {
+  default     = false
+  description = "Enable port 80 redirect to 443."
+  type        = bool
+}

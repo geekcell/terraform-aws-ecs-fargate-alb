@@ -4,8 +4,9 @@ module "alb" {
   name    = var.name
   subnets = var.vpc_public_subnets
 
-  enable_security_group         = true
-  enable_http_to_https_redirect = false
+  enable_security_group                         = var.enable_security_group
+  enable_security_group_default_http_https_rule = var.enable_security_group_default_http_https_rule
+  enable_http_to_https_redirect                 = var.enable_http_to_https_redirect
 }
 
 resource "aws_security_group_rule" "alb_egress_to_ecs" {
