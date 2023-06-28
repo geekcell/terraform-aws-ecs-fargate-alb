@@ -127,13 +127,14 @@ module "ecs_task_definition" {
   container_definitions            = [module.ecs_nginx_container.hcl]
 }
 
-resource "aws_ecs_service" "web" {
+resource "aws_ecs_service" "main" {
   name = var.name
 
   launch_type            = "FARGATE"
   cluster                = module.ecs_cluster.name
   task_definition        = module.ecs_task_definition.arn
   desired_count          = var.desired_count
+  enable_execute_command = var.enable_execute_command
 
   deployment_controller {
     type = "ECS"
@@ -159,6 +160,6 @@ resource "aws_ecs_service" "web" {
   }
 }
 
-resource "aws_cloudwatch_log_group" "web" {
+resource "aws_cloudwatch_log_group" "main" {
   name = "/aws/ecs/${module.ecs_cluster.name}/${var.name}"
 }

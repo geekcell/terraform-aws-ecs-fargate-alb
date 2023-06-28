@@ -29,6 +29,12 @@ variable "desired_count" {
   type        = number
 }
 
+variable "enable_execute_command" {
+  default     = true
+  description = "Allow execution commands on containers."
+  type        = bool
+}
+
 variable "enable_security_group" {
   default     = true
   description = "Enable default security group."
