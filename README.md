@@ -46,6 +46,9 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 |------|-------------|------|---------|:--------:|
 | <a name="input_app_port"></a> [app\_port](#input\_app\_port) | Port that the app container listens on. | `number` | n/a | yes |
 | <a name="input_desired_count"></a> [desired\_count](#input\_desired\_count) | Number of desired Fargate tasks. | `number` | `1` | no |
+| <a name="input_enable_http_to_https_redirect"></a> [enable\_http\_to\_https\_redirect](#input\_enable\_http\_to\_https\_redirect) | Enable port 80 redirect to 443. | `bool` | `false` | no |
+| <a name="input_enable_security_group"></a> [enable\_security\_group](#input\_enable\_security\_group) | Enable default security group. | `bool` | `true` | no |
+| <a name="input_enable_security_group_default_http_https_rule"></a> [enable\_security\_group\_default\_http\_https\_rule](#input\_enable\_security\_group\_default\_http\_https\_rule) | Enable default security group rules for port 80 & 443. | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name to use for components. | `string` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | Id of VPC. | `string` | n/a | yes |
 | <a name="input_vpc_private_subnets"></a> [vpc\_private\_subnets](#input\_vpc\_private\_subnets) | Private subnets from VPC. | `list(string)` | n/a | yes |
@@ -73,12 +76,12 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 
 ## Resources
 
-- resource.aws_cloudwatch_log_group.web (main.tf#161)
-- resource.aws_ecs_service.web (main.tf#129)
-- resource.aws_lb_listener.main (main.tf#58)
-- resource.aws_lb_target_group.main (main.tf#33)
-- resource.aws_security_group_rule.alb_egress_to_ecs (main.tf#11)
-- resource.aws_security_group_rule.alb_ingress_to_ecs (main.tf#22)
+- resource.aws_cloudwatch_log_group.web (main.tf#162)
+- resource.aws_ecs_service.web (main.tf#130)
+- resource.aws_lb_listener.main (main.tf#59)
+- resource.aws_lb_target_group.main (main.tf#34)
+- resource.aws_security_group_rule.alb_egress_to_ecs (main.tf#12)
+- resource.aws_security_group_rule.alb_ingress_to_ecs (main.tf#23)
 
 # Examples
 ### Complete
