@@ -44,7 +44,12 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_app_port"></a> [app\_port](#input\_app\_port) | Port that the app container listens on. | `number` | n/a | yes |
+| <a name="input_container_image"></a> [container\_image](#input\_container\_image) | Image to create task definition with. | `string` | `"public.ecr.aws/docker/library/nginx:1.23-alpine"` | no |
+| <a name="input_container_name"></a> [container\_name](#input\_container\_name) | Name of container to create task definition with. | `string` | `"nginx"` | no |
+| <a name="input_container_port"></a> [container\_port](#input\_container\_port) | Port to create task definition with. | `number` | `80` | no |
+| <a name="input_container_protocol"></a> [container\_protocol](#input\_container\_protocol) | Protocol to create task definition with. | `string` | `"tcp"` | no |
+| <a name="input_deployment_maximum_percent"></a> [deployment\_maximum\_percent](#input\_deployment\_maximum\_percent) | Maximum deployment percent. Usually double minimum to allow rolling deployment. | `number` | `200` | no |
+| <a name="input_deployment_minimum_healthy_percent"></a> [deployment\_minimum\_healthy\_percent](#input\_deployment\_minimum\_healthy\_percent) | Minimum deployment percent. Usually set to 100 to ensure at least one task. | `number` | `100` | no |
 | <a name="input_desired_count"></a> [desired\_count](#input\_desired\_count) | Number of desired Fargate tasks. | `number` | `1` | no |
 | <a name="input_enable_execute_command"></a> [enable\_execute\_command](#input\_enable\_execute\_command) | Allow execution commands on containers. | `bool` | `true` | no |
 | <a name="input_enable_http_to_https_redirect"></a> [enable\_http\_to\_https\_redirect](#input\_enable\_http\_to\_https\_redirect) | Enable port 80 redirect to 443. | `bool` | `false` | no |
