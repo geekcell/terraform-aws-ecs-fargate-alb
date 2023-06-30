@@ -15,9 +15,9 @@ resource "aws_security_group_rule" "alb_egress_to_ecs" {
 
   description              = "Allow HTTP traffic to the ECS service ${var.name}."
   source_security_group_id = module.ecs_security_group.security_group_id
-  protocol                 = "tcp"
-  from_port                = 80
-  to_port                  = 80
+  protocol                 = var.container_protocol
+  from_port                = var.container_port
+  to_port                  = var.container_port
 }
 
 resource "aws_security_group_rule" "alb_ingress_to_ecs" {
@@ -26,23 +26,23 @@ resource "aws_security_group_rule" "alb_ingress_to_ecs" {
 
   description              = "Allow HTTP traffic to the ECS service ${var.name}."
   source_security_group_id = module.ecs_security_group.security_group_id
-  protocol                 = "tcp"
-  from_port                = 80
-  to_port                  = 80
+  protocol                 = var.container_protocol
+  from_port                = var.container_port
+  to_port                  = var.container_port
 }
 
 resource "aws_lb_target_group" "main" {
   name   = var.name
   vpc_id = var.vpc_id
 
-  port                 = var.app_port
+  port                 = var.container_port
   protocol             = "HTTP"
   target_type          = "ip"
   deregistration_delay = 5
 
   health_check {
     protocol = "HTTP"
-    port     = var.app_port
+    port     = var.container_port
     path     = "/ok"
 
     interval            = 5
@@ -86,12 +86,12 @@ module "ecr_repository" {
 module "ecs_nginx_container" {
   source = "github.com/geekcell/terraform-aws-ecs-container-definition?ref=v1.0.0"
 
-  name          = "nginx"
-  image         = "public.ecr.aws/docker/library/nginx:1.23-alpine"
+  name          = var.container_name
+  image         = var.container_image
   port_mappings = [
     {
-      container_port = 80
-      protocol       = "tcp"
+      container_port = var.container_port
+      protocol       = var.container_protocol
     }
   ]
 }
@@ -105,8 +105,8 @@ module "ecs_security_group" {
   ingress_rules = [
     {
       description              = "Allow HTTP traffic from the ALB."
-      port                     = 80
-      protocol                 = "tcp"
+      port                     = var.container_port
+      protocol                 = var.container_protocol
       source_security_group_id = module.alb.security_group
     }
   ]
@@ -140,8 +140,8 @@ resource "aws_ecs_service" "main" {
     type = "ECS"
   }
 
-  deployment_maximum_percent         = 100
-  deployment_minimum_healthy_percent = 0
+  deployment_maximum_percent         = var.deployment_maximum_percent
+  deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
 
   network_configuration {
     subnets          = var.vpc_private_subnets
@@ -155,8 +155,8 @@ resource "aws_ecs_service" "main" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.main.arn
-    container_name   = "nginx"
-    container_port   = var.app_port
+    container_name   = var.container_protocol
+    container_port   = var.container_port
   }
 }
 
