@@ -80,10 +80,10 @@ module "ecr_repository" {
   name   = var.name
 }
 
-# This task definition is used to deploy the web service once.
+# This task definition is used to deploy the service once.
 # It is ignored after the first deployment, because the real
 # task definition will be located in ECR.
-module "ecs_nginx_container" {
+module "ecs_container_definition" {
   source = "github.com/geekcell/terraform-aws-ecs-container-definition?ref=v1.0.0"
 
   name          = var.container_name
@@ -124,7 +124,7 @@ module "ecs_task_definition" {
   source = "github.com/geekcell/terraform-aws-ecs-task-definition.git?ref=v1.0.0"
 
   name                             = var.name
-  container_definitions            = [module.ecs_nginx_container.hcl]
+  container_definitions            = [module.ecs_container_definition.hcl]
 }
 
 resource "aws_ecs_service" "main" {
@@ -155,7 +155,7 @@ resource "aws_ecs_service" "main" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.main.arn
-    container_name   = var.container_protocol
+    container_name   = var.container_name
     container_port   = var.container_port
   }
 }
