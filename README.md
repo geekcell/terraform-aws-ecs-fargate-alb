@@ -82,12 +82,12 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 
 ## Resources
 
-- resource.aws_cloudwatch_log_group.main (main.tf#163)
-- resource.aws_ecs_service.main (main.tf#130)
-- resource.aws_lb_listener.main (main.tf#59)
-- resource.aws_lb_target_group.main (main.tf#34)
-- resource.aws_security_group_rule.alb_egress_to_ecs (main.tf#12)
-- resource.aws_security_group_rule.alb_ingress_to_ecs (main.tf#23)
+- resource.aws_cloudwatch_log_group.main (main.tf#171)
+- resource.aws_ecs_service.main (main.tf#138)
+- resource.aws_lb_listener.main (main.tf#60)
+- resource.aws_lb_target_group.main (main.tf#35)
+- resource.aws_security_group_rule.alb_egress_to_ecs (main.tf#13)
+- resource.aws_security_group_rule.alb_ingress_to_ecs (main.tf#24)
 
 # Examples
 ### Complete
