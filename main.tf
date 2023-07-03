@@ -1,5 +1,6 @@
 module "alb" {
-  source = "github.com/geekcell/terraform-aws-application-load-balancer?ref=v1.0.0"
+  source  = "geekcell/application-load-balancer/aws"
+  version = "v1.1.0"
 
   name    = var.name
   subnets = var.vpc_public_subnets
@@ -71,20 +72,25 @@ resource "aws_lb_listener" "main" {
 }
 
 module "ecs_cluster" {
-  source = "github.com/geekcell/terraform-aws-ecs-cluster?ref=v1.0.0"
-  name   = var.name
+  source  = "geekcell/ecs-cluster/aws"
+  version = "v1.0.1"
+
+  name = var.name
 }
 
 module "ecr_repository" {
-  source = "github.com/geekcell/terraform-aws-ecr-repository?ref=v1.0.0"
-  name   = var.name
+  source  = "geekcell/ecr-repository/aws"
+  version = "v1.0.1"
+
+  name = var.name
 }
 
 # This task definition is used to deploy the service once.
 # It is ignored after the first deployment, because the real
 # task definition will be located in ECR.
 module "ecs_container_definition" {
-  source = "github.com/geekcell/terraform-aws-ecs-container-definition?ref=v1.0.0"
+  source  = "geekcell/ecs-container-definition/aws"
+  version = "v2.0.0"
 
   name          = var.container_name
   image         = var.container_image
@@ -97,7 +103,8 @@ module "ecs_container_definition" {
 }
 
 module "ecs_security_group" {
-  source = "github.com/geekcell/terraform-aws-security-group?ref=v1.0.0"
+  source  = "geekcell/security-group/aws"
+  version = "v1.0.1"
 
   name   = "${var.name}-ecs"
   vpc_id = var.vpc_id
@@ -121,7 +128,8 @@ module "ecs_security_group" {
 }
 
 module "ecs_task_definition" {
-  source = "github.com/geekcell/terraform-aws-ecs-task-definition.git?ref=v1.0.0"
+  source  = "geekcell/ecs-task-definition/aws"
+  version = "v1.0.1"
 
   name                             = var.name
   container_definitions            = [module.ecs_container_definition.hcl]
