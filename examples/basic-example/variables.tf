@@ -18,7 +18,7 @@ variable "vpc_private_subnets" {
   type        = list(string)
 }
 
-variable "app_port" {
+variable "container_port" {
   description = "Port that the app container listens on."
   type        = number
 }
