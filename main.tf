@@ -92,8 +92,8 @@ module "ecs_container_definition" {
   source  = "geekcell/ecs-container-definition/aws"
   version = "v2.0.0"
 
-  name          = var.container_name
-  image         = var.container_image
+  name  = var.container_name
+  image = var.container_image
   port_mappings = [
     {
       container_port = var.container_port
@@ -131,8 +131,8 @@ module "ecs_task_definition" {
   source  = "geekcell/ecs-task-definition/aws"
   version = "v1.0.1"
 
-  name                             = var.name
-  container_definitions            = [module.ecs_container_definition.hcl]
+  name                  = var.name
+  container_definitions = [module.ecs_container_definition.hcl]
 }
 
 resource "aws_ecs_service" "main" {
