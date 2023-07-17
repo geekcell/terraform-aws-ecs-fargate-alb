@@ -101,7 +101,7 @@ module "basic-example" {
   vpc_private_subnets = var.vpc_private_subnets
   vpc_public_subnets  = var.vpc_public_subnets
 
-  app_port = var.app_port
+  container_port = var.container_port
 }
 ```
 <!-- END_TF_DOCS -->
