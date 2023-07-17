@@ -18,8 +18,21 @@ variable "vpc_private_subnets" {
   type        = list(string)
 }
 
+variable "container_name" {
+  default     = "nginx"
+  description = "Name of container to create task definition with."
+  type        = string
+}
+
+variable "container_image" {
+  default     = "public.ecr.aws/docker/library/nginx:1.23-alpine"
+  description = "Image to create task definition with."
+  type        = string
+}
+
 variable "container_port" {
-  description = "Port that the app container listens on."
+  default     = 80
+  description = "Port to create task definition with."
   type        = number
 }
 
