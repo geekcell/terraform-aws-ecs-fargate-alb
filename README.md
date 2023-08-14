@@ -56,6 +56,18 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 | <a name="input_enable_security_group"></a> [enable\_security\_group](#input\_enable\_security\_group) | Enable default security group. | `bool` | `true` | no |
 | <a name="input_enable_security_group_default_http_https_rule"></a> [enable\_security\_group\_default\_http\_https\_rule](#input\_enable\_security\_group\_default\_http\_https\_rule) | Enable default security group rules for port 80 & 443. | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name to use for components. | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags to add to the created resources. | `map(any)` | `{}` | no |
+| <a name="input_task_additional_execute_role_policies"></a> [task\_additional\_execute\_role\_policies](#input\_task\_additional\_execute\_role\_policies) | Additional policy ARNs to attach to the execution role. | `list(string)` | `[]` | no |
+| <a name="input_task_additional_task_role_policies"></a> [task\_additional\_task\_role\_policies](#input\_task\_additional\_task\_role\_policies) | Additional policy ARNs to attach to the task role. | `list(string)` | `[]` | no |
+| <a name="input_task_cpu"></a> [task\_cpu](#input\_task\_cpu) | Number of CPU units used by the task. | `number` | `1024` | no |
+| <a name="input_task_cpu_architecture"></a> [task\_cpu\_architecture](#input\_task\_cpu\_architecture) | CPU architecture required by the task. | `string` | `"X86_64"` | no |
+| <a name="input_task_definition_name"></a> [task\_definition\_name](#input\_task\_definition\_name) | Name of the task definition. Defaults to the base name. | `string` | `null` | no |
+| <a name="input_task_ephemeral_storage_size_in_gib"></a> [task\_ephemeral\_storage\_size\_in\_gib](#input\_task\_ephemeral\_storage\_size\_in\_gib) | The amount of ephemeral storage (in GiB) to allocate to the task. | `number` | `20` | no |
+| <a name="input_task_inference_accelerators"></a> [task\_inference\_accelerators](#input\_task\_inference\_accelerators) | List of Elastic Inference accelerators associated with the task. | <pre>list(object({<br>    name = string<br>    type = string<br>  }))</pre> | `[]` | no |
+| <a name="input_task_memory"></a> [task\_memory](#input\_task\_memory) | Amount (in MiB) of memory used by the task. | `number` | `2048` | no |
+| <a name="input_task_operating_system_family"></a> [task\_operating\_system\_family](#input\_task\_operating\_system\_family) | OS family required by the task. | `string` | `"LINUX"` | no |
+| <a name="input_task_proxy_configuration"></a> [task\_proxy\_configuration](#input\_task\_proxy\_configuration) | Configuration details for an App Mesh proxy. | <pre>object({<br>    container_name = string<br>    properties     = map(any)<br>    type           = optional(string, "APPMESH")<br>  })</pre> | `null` | no |
+| <a name="input_task_volumes"></a> [task\_volumes](#input\_task\_volumes) | A list of volume definitions. | <pre>list(object({<br>    name      = string<br>    host_path = string<br><br>    docker_volume_configuration = optional(object({<br>      autoprovision = bool<br>      driver        = string<br>      driver_opts   = map(any)<br>      labels        = map(any)<br>      scope         = string<br>    }))<br><br>    efs_volume_configuration = optional(object({<br>      file_system_id          = string<br>      root_directory          = optional(string)<br>      transit_encryption      = optional(string)<br>      transit_encryption_port = optional(number)<br><br>      authorization_config = optional(object({<br>        access_point_id = string<br>        iam             = optional(string)<br>      }))<br>    }))<br>  }))</pre> | `[]` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | Id of VPC. | `string` | n/a | yes |
 | <a name="input_vpc_private_subnets"></a> [vpc\_private\_subnets](#input\_vpc\_private\_subnets) | Private subnets from VPC. | `list(string)` | n/a | yes |
 | <a name="input_vpc_public_subnets"></a> [vpc\_public\_subnets](#input\_vpc\_public\_subnets) | Public subnets from VPC. | `list(string)` | n/a | yes |
@@ -82,8 +94,8 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 
 ## Resources
 
-- resource.aws_cloudwatch_log_group.main (main.tf#171)
-- resource.aws_ecs_service.main (main.tf#138)
+- resource.aws_cloudwatch_log_group.main (main.tf#187)
+- resource.aws_ecs_service.main (main.tf#154)
 - resource.aws_lb_listener.main (main.tf#60)
 - resource.aws_lb_target_group.main (main.tf#35)
 - resource.aws_security_group_rule.alb_egress_to_ecs (main.tf#13)
