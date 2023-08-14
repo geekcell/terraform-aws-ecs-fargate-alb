@@ -85,15 +85,13 @@ module "ecr_repository" {
   name = var.name
 }
 
-# This task definition is used to deploy the service once.
-# It is ignored after the first deployment, because the real
-# task definition will be located in ECR.
 module "ecs_container_definition" {
   source  = "geekcell/ecs-container-definition/aws"
   version = "v2.0.0"
 
   name  = var.container_name
   image = var.container_image
+
   port_mappings = [
     {
       container_port = var.container_port
@@ -131,8 +129,26 @@ module "ecs_task_definition" {
   source  = "geekcell/ecs-task-definition/aws"
   version = "v1.0.1"
 
-  name                  = var.name
+  name = var.name
+
   container_definitions = [module.ecs_container_definition.hcl]
+
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+
+  # Pass through
+  enable_execute_command           = var.enable_execute_command
+  cpu                              = var.task_cpu
+  memory                           = var.task_memory
+  operating_system_family          = var.task_operating_system_family
+  cpu_architecture                 = var.task_cpu_architecture
+  ephemeral_storage_size_in_gib    = var.task_ephemeral_storage_size_in_gib
+  volumes                          = var.task_volumes
+  inference_accelerators           = var.task_inference_accelerators
+  proxy_configuration              = var.task_proxy_configuration
+  additional_execute_role_policies = var.task_additional_execute_role_policies
+  additional_task_role_policies    = var.task_additional_task_role_policies
+  tags                             = var.tags
 }
 
 resource "aws_ecs_service" "main" {
