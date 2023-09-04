@@ -86,7 +86,6 @@ module "ecs_cluster" {
   version = "v1.0.1"
 
   name = var.name
-
   tags = var.tags
 }
 
@@ -95,7 +94,6 @@ module "ecr_repository" {
   version = "v1.0.1"
 
   name = var.name
-
   tags = var.tags
 }
 
@@ -112,8 +110,6 @@ module "ecs_container_definition" {
       protocol       = var.container_protocol
     }
   ]
-
-  tags = var.tags
 }
 
 module "ecs_security_group" {
@@ -147,7 +143,7 @@ module "ecs_task_definition" {
   source  = "geekcell/ecs-task-definition/aws"
   version = "v1.0.1"
 
-  name = var.name
+  name = coalesce(var.task_definition_name, var.name)
 
   container_definitions = [module.ecs_container_definition.hcl]
 
@@ -207,6 +203,5 @@ resource "aws_ecs_service" "main" {
 
 resource "aws_cloudwatch_log_group" "main" {
   name = "/aws/ecs/${module.ecs_cluster.name}/${var.name}"
-
   tags = var.tags
 }
