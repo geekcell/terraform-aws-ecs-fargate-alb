@@ -21,8 +21,6 @@ resource "aws_security_group_rule" "alb_egress_to_ecs" {
   protocol                 = var.container_protocol
   from_port                = var.container_port
   to_port                  = var.container_port
-
-  tags = var.tags
 }
 
 resource "aws_security_group_rule" "alb_ingress_to_ecs" {
@@ -34,8 +32,6 @@ resource "aws_security_group_rule" "alb_ingress_to_ecs" {
   protocol                 = var.container_protocol
   from_port                = var.container_port
   to_port                  = var.container_port
-
-  tags = var.tags
 }
 
 resource "aws_lb_target_group" "main" {
