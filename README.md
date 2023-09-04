@@ -90,7 +90,7 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.36 |
 
 ## Resources
 
