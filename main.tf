@@ -143,7 +143,7 @@ module "ecs_task_definition" {
   source  = "geekcell/ecs-task-definition/aws"
   version = "v1.0.1"
 
-  name = var.name
+  name = coalesce(var.task_definition_name, var.name)
 
   container_definitions = [module.ecs_container_definition.hcl]
 
