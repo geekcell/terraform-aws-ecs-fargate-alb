@@ -8,6 +8,8 @@ module "alb" {
   enable_security_group                         = var.enable_security_group
   enable_security_group_default_http_https_rule = var.enable_security_group_default_http_https_rule
   enable_http_to_https_redirect                 = var.enable_http_to_https_redirect
+
+  tags = var.tags
 }
 
 resource "aws_security_group_rule" "alb_egress_to_ecs" {
@@ -19,6 +21,8 @@ resource "aws_security_group_rule" "alb_egress_to_ecs" {
   protocol                 = var.container_protocol
   from_port                = var.container_port
   to_port                  = var.container_port
+
+  tags = var.tags
 }
 
 resource "aws_security_group_rule" "alb_ingress_to_ecs" {
@@ -30,6 +34,8 @@ resource "aws_security_group_rule" "alb_ingress_to_ecs" {
   protocol                 = var.container_protocol
   from_port                = var.container_port
   to_port                  = var.container_port
+
+  tags = var.tags
 }
 
 resource "aws_lb_target_group" "main" {
@@ -55,6 +61,8 @@ resource "aws_lb_target_group" "main" {
   lifecycle {
     create_before_destroy = true
   }
+
+  tags = var.tags
 }
 
 resource "aws_lb_listener" "main" {
@@ -69,6 +77,8 @@ resource "aws_lb_listener" "main" {
   }
 
   depends_on = [aws_lb_target_group.main]
+
+  tags = var.tags
 }
 
 module "ecs_cluster" {
@@ -76,6 +86,8 @@ module "ecs_cluster" {
   version = "v1.0.1"
 
   name = var.name
+
+  tags = var.tags
 }
 
 module "ecr_repository" {
@@ -83,6 +95,8 @@ module "ecr_repository" {
   version = "v1.0.1"
 
   name = var.name
+
+  tags = var.tags
 }
 
 module "ecs_container_definition" {
@@ -98,6 +112,8 @@ module "ecs_container_definition" {
       protocol       = var.container_protocol
     }
   ]
+
+  tags = var.tags
 }
 
 module "ecs_security_group" {
@@ -123,6 +139,8 @@ module "ecs_security_group" {
       cidr_blocks = ["0.0.0.0/0"]
     }
   ]
+
+  tags = var.tags
 }
 
 module "ecs_task_definition" {
@@ -148,7 +166,8 @@ module "ecs_task_definition" {
   proxy_configuration              = var.task_proxy_configuration
   additional_execute_role_policies = var.task_additional_execute_role_policies
   additional_task_role_policies    = var.task_additional_task_role_policies
-  tags                             = var.tags
+
+  tags = var.tags
 }
 
 resource "aws_ecs_service" "main" {
@@ -182,8 +201,12 @@ resource "aws_ecs_service" "main" {
     container_name   = var.container_name
     container_port   = var.container_port
   }
+
+  tags = var.tags
 }
 
 resource "aws_cloudwatch_log_group" "main" {
   name = "/aws/ecs/${module.ecs_cluster.name}/${var.name}"
+
+  tags = var.tags
 }
