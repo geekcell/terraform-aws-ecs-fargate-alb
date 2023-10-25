@@ -51,6 +51,7 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 | <a name="input_deployment_maximum_percent"></a> [deployment\_maximum\_percent](#input\_deployment\_maximum\_percent) | Maximum deployment percent. Usually double minimum to allow rolling deployment. | `number` | `200` | no |
 | <a name="input_deployment_minimum_healthy_percent"></a> [deployment\_minimum\_healthy\_percent](#input\_deployment\_minimum\_healthy\_percent) | Minimum deployment percent. Usually set to 100 to ensure at least one task. | `number` | `100` | no |
 | <a name="input_desired_count"></a> [desired\_count](#input\_desired\_count) | Number of desired Fargate tasks. | `number` | `1` | no |
+| <a name="input_enable_deletion_protection"></a> [enable\_deletion\_protection](#input\_enable\_deletion\_protection) | Enable delete protection on ALB. | `bool` | `true` | no |
 | <a name="input_enable_execute_command"></a> [enable\_execute\_command](#input\_enable\_execute\_command) | Allow execution commands on containers. | `bool` | `true` | no |
 | <a name="input_enable_http_to_https_redirect"></a> [enable\_http\_to\_https\_redirect](#input\_enable\_http\_to\_https\_redirect) | Enable port 80 redirect to 443. | `bool` | `false` | no |
 | <a name="input_enable_security_group"></a> [enable\_security\_group](#input\_enable\_security\_group) | Enable default security group. | `bool` | `true` | no |
@@ -94,12 +95,12 @@ Replace the GitHub Repo name and comment in these badges if they BridgeCrew is e
 
 ## Resources
 
-- resource.aws_cloudwatch_log_group.main (main.tf#200)
-- resource.aws_ecs_service.main (main.tf#165)
-- resource.aws_lb_listener.main (main.tf#64)
-- resource.aws_lb_target_group.main (main.tf#37)
-- resource.aws_security_group_rule.alb_egress_to_ecs (main.tf#15)
-- resource.aws_security_group_rule.alb_ingress_to_ecs (main.tf#26)
+- resource.aws_cloudwatch_log_group.main (main.tf#201)
+- resource.aws_ecs_service.main (main.tf#166)
+- resource.aws_lb_listener.main (main.tf#65)
+- resource.aws_lb_target_group.main (main.tf#38)
+- resource.aws_security_group_rule.alb_egress_to_ecs (main.tf#16)
+- resource.aws_security_group_rule.alb_ingress_to_ecs (main.tf#27)
 
 # Examples
 ### Complete
