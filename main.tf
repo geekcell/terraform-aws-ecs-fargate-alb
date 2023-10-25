@@ -8,6 +8,7 @@ module "alb" {
   enable_security_group                         = var.enable_security_group
   enable_security_group_default_http_https_rule = var.enable_security_group_default_http_https_rule
   enable_http_to_https_redirect                 = var.enable_http_to_https_redirect
+  enable_deletion_protection                    = var.enable_deletion_protection
 
   tags = var.tags
 }

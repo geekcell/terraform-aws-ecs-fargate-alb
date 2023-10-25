@@ -48,6 +48,12 @@ variable "enable_http_to_https_redirect" {
   type        = bool
 }
 
+variable "enable_deletion_protection" {
+  default     = true
+  description = "Enable delete protection on ALB."
+  type        = bool
+}
+
 variable "container_name" {
   default     = "nginx"
   description = "Name of container to create task definition with."

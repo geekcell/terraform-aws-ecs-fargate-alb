@@ -15,6 +15,9 @@ run "basic_fargate_alb" {
     vpc_id              = run.setup.vpc_id
     vpc_private_subnets = run.setup.vpc_private_subnets
     vpc_public_subnets  = run.setup.vpc_public_subnets
+
+    # allow teardown to remove ALB
+    enable_deletion_protection = false
   }
 
   assert {
