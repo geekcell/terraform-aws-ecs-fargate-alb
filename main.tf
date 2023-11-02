@@ -8,30 +8,9 @@ module "alb" {
   enable_security_group                         = var.enable_security_group
   enable_security_group_default_http_https_rule = var.enable_security_group_default_http_https_rule
   enable_http_to_https_redirect                 = var.enable_http_to_https_redirect
+  enable_deletion_protection                    = var.enable_deletion_protection
 
   tags = var.tags
-}
-
-resource "aws_security_group_rule" "alb_egress_to_ecs" {
-  security_group_id = module.alb.security_group
-  type              = "egress"
-
-  description              = "Allow HTTP traffic to the ECS service ${var.name}."
-  source_security_group_id = module.ecs_security_group.security_group_id
-  protocol                 = var.container_protocol
-  from_port                = var.container_port
-  to_port                  = var.container_port
-}
-
-resource "aws_security_group_rule" "alb_ingress_to_ecs" {
-  security_group_id = module.alb.security_group
-  type              = "ingress"
-
-  description              = "Allow HTTP traffic to the ECS service ${var.name}."
-  source_security_group_id = module.ecs_security_group.security_group_id
-  protocol                 = var.container_protocol
-  from_port                = var.container_port
-  to_port                  = var.container_port
 }
 
 resource "aws_lb_target_group" "main" {
